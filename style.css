@@ -1,14 +1,81 @@
-/* <ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-  </li>
-</ul> */
+/* General Reset & Base */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #0b0c10, #1f2833);
+  color: #c5c6c7;
+  min-height: 100vh;
+  padding-top: 50px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  color: #66fcf1;
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(102, 252, 241, 0.3);
+}
+
+/* Navbar links */
+nav a {
+  color: #c5c6c7;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #66fcf1;
+}
+
+/* Search section */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.search-section input[type="text"] {
+  width: 300px;
+  border-radius: 8px;
+  border: 1px solid #45a29e;
+  padding: 10px;
+  background: #0b0c10;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.search-section button {
+  background-color: #45a29e;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.search-section button:hover {
+  background-color: #66fcf1;
+  color: #0b0c10;
+  transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 80px;
+  color: #888;
+  font-size: 14px;
+}
+.search-section label {
+  font-size: 1.2rem;       /* bigger text */
+  font-weight: 600;        /* bold */
+  color: #ffffff;          /* pure white for contrast */
+  margin-bottom: 10px;
+}
