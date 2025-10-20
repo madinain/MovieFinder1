@@ -1,0 +1,26 @@
+Group Information
+Group Name / Number: Group 5
+Members Present: Madina Ingamova, Phelton Moss, Asim Adam, Trisha Patel
+Date of Submission: 10/10/2025
+
+1. Current Progress
+What features/pages have you completed so far?: So far, we have completed the main structure and functionality for the home and search pages. We also have integrated the OMBd API into our website, so users can now search for movies by title and view other details about it. We created and linked our style.css to our pages. 
+What features are in progress?: We are currently finalizing the Contact and Team Members pages. 
+What features are planned next?: We plan to enhance the style and responsiveness across all pages using BootStrap components. 
+
+
+2. What Went Well 
+List 2–3 things that worked well for your group this week (e.g., communication, coding progress, division of tasks): Our API integration went smoothly, and we successfully retrieved and displayed real movie data from the OMDb.
+
+3. Challenges / Blockers 
+List issues your group ran into (technical, teamwork, scheduling): We weren’t able to collectively work the project together at the same time for some of the meetings. 
+Did you solve them? If not, what help do you need?: Yes, we still managed to communicate, divide the tasks, and complete our parts during our own time. 
+
+4. Next Steps 
+What are your immediate next goals for the project?: Finish styling all pages, add validation to the contact form, and finalize the group members page layout. 
+Who is responsible for each?: Trisha will manage deadlines and begin working on the README file. Madina will continue to design and style the website using Bootstrap. Phelton will continue improving JavaScript functionality and responsiveness, and Asim will test all the pages.
+
+5. Reflection 
+One thing your group learned this sprint (about coding, teamwork, or project management): We learned how to integrate the API into our website.
+
+
