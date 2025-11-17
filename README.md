@@ -34,3 +34,11 @@ Movie Finder is a website application that allows users to search for movies and
 1. Clone or download the repository from GitHub:  
    ```bash
    git clone https://github.com/madinain/MovieFinder1
+
+---
+
+## Group Members & Roles
+Madina Inagamova - Front-End Developer
+Phelton Moss - Back-End Developer
+Asim Adam - QA Specialist
+Trisha Patel - Project Manager: Coordinated tasks, tracked deadlines, led sprint retrospectives, created README file.
