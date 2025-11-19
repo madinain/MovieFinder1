@@ -38,7 +38,7 @@ Movie Finder is a website application that allows users to search for movies and
 ---
 
 ## Group Members & Roles
-- Madina Ingamova, Front-End Developer
-- Phelton Payne, Back-End Developer
+- Madina Ingamova, Back-End Developer
+- Phelton Payne, Front-End Developer
 - Asim Adam, QA Specialist
 - Trisha Patel, Project Manager: Coordinated tasks, tracked deadlines, led sprint retrospectives, created README file.
