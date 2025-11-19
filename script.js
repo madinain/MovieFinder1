@@ -1,95 +1,97 @@
-// ==== Beginner Movie Finder (OMDb) ====
-// 1) Get a free API key at https://www.omdbapi.com/apikey.aspx
-const API_KEY = "60397f08"; 
+// ==== Movie Finder using jQuery AJAX + OMDb ====
+const API_KEY = "60397f08";
 const API_URL = "https://www.omdbapi.com/";
 
+$(document).ready(function () {
+  const $form = $("#searchForm");
+  const $input = $("#query");
+  const $results = $("#results");
+  const $errorEl = $("#error");
 
-const form = document.getElementById("searchForm");
-const input = document.getElementById("query");
-const results = document.getElementById("results");
-const errorEl = document.getElementById("error");
+  // If this page doesn't have a search form (Team/Contact), do nothing
+  if ($form.length === 0) return;
 
-// Simple loading text
-function showLoading() {
-  results.innerHTML = "<p>Loading…</p>";
-}
-function clearLoading() {
-  if (results.innerHTML.includes("Loading…")) results.innerHTML = "";
-}
-
-function showError(msg) {
-  errorEl.textContent = msg;
-}
-function clearError() {
-  errorEl.textContent = "";
-}
-
-function renderMovie(m) {
-  // Handle missing poster
-  const poster =
-    m.Poster && m.Poster !== "N/A"
-      ? `<img src="${m.Poster}" alt="Poster for ${m.Title}" width="200">`
-      : `<div style="width:200px;height:300px;background:#eee;display:flex;align-items:center;justify-content:center;">No Poster</div>`;
-
-  results.innerHTML = `
-    <article>
-      <div>${poster}</div>
-      <h2>${m.Title || "Unknown title"} (${m.Year || "N/A"})</h2>
-      <p><strong>Genre:</strong> ${m.Genre || "N/A"}</p>
-      <p><strong>Director:</strong> ${m.Director || "N/A"}</p>
-      <p><strong>Actors:</strong> ${m.Actors || "N/A"}</p>
-      <p><strong>Plot:</strong> ${m.Plot || "N/A"}</p>
-      <p><strong>IMDB Rating:</strong> ${m.imdbRating || "N/A"}</p>
-    </article>
-  `;
-}
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  clearError();
-
-  const title = input.value.trim();
-  if (!title) {
-    showError("Please enter a movie title.");
-    return;
+  function showLoading() {
+    $results.html("<p>Loading…</p>");
   }
 
-  showLoading();
+  function clearLoading() {
+    if ($results.html().includes("Loading…")) {
+      $results.empty();
+    }
+  }
 
-  try {
-    // 't=' returns a single movie by exact title (beginner-friendly)
-    const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${encodeURIComponent(
-      title
-    )}`;
+  function showError(msg) {
+    $errorEl.text(msg);
+  }
 
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Network error");
-    const data = await res.json();
+  function clearError() {
+    $errorEl.text("");
+  }
 
-    if (data.Response === "False") {
-      results.innerHTML = "";
-      showError(data.Error || "Movie not found.");
+  function renderMovie(m) {
+    const poster =
+      m.Poster && m.Poster !== "N/A"
+        ? `<img src="${m.Poster}" alt="Poster for ${m.Title}" width="200">`
+        : `<div style="width:200px;height:300px;background:#eee;display:flex;align-items:center;justify-content:center;">No Poster</div>`;
+
+    $results.html(`
+      <article>
+        <div>${poster}</div>
+        <h2>${m.Title || "Unknown title"} (${m.Year || "N/A"})</h2>
+        <p><strong>Genre:</strong> ${m.Genre || "N/A"}</p>
+        <p><strong>Director:</strong> ${m.Director || "N/A"}</p>
+        <p><strong>Actors:</strong> ${m.Actors || "N/A"}</p>
+        <p><strong>Plot:</strong> ${m.Plot || "N/A"}</p>
+        <p><strong>IMDB Rating:</strong> ${m.imdbRating || "N/A"}</p>
+      </article>
+    `);
+  }
+
+  // Handle form submit
+  $form.on("submit", function (e) {
+    e.preventDefault();
+    clearError();
+
+    const title = $input.val().trim();
+    if (!title) {
+      showError("Please enter a movie title.");
       return;
     }
 
-    renderMovie(data);
-  } catch (err) {
-    console.error(err);
-    results.innerHTML = "";
-    showError("Something went wrong. Try again.");
-  } finally {
-    clearLoading();
-  }
+    showLoading();
 
-  // Auto-run when we're on search.html and there's a ?q= in the URL
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(location.search);
+    $.ajax({
+      url: API_URL,
+      method: "GET",
+      data: {
+        apikey: API_KEY,
+        t: title // search by exact title
+      },
+      success: function (data) {
+        clearLoading();
+
+        if (data.Response === "False") {
+          $results.empty();
+          showError(data.Error || "Movie not found.");
+          return;
+        }
+
+        renderMovie(data);
+      },
+      error: function (xhr, status, error) {
+        console.error("AJAX error:", status, error);
+        $results.empty();
+        showError("Something went wrong. Try again.");
+      }
+    });
+  });
+
+  // OPTIONAL: if you ever use ?query= in the URL, auto-run
+  const params = new URLSearchParams(window.location.search);
   const q = params.get("q") || params.get("query");
-  if (q && input) {
-    input.value = q;
-    // Trigger the same submit flow you already wrote
-    form.dispatchEvent(new Event("submit"));
+  if (q) {
+    $input.val(q);
+    $form.trigger("submit");
   }
-});
-
 });
