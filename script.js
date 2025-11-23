@@ -95,3 +95,75 @@ $(document).ready(function () {
     $form.trigger("submit");
   }
 });
+
+
+// CONTACT FORM LOGIC
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  const savedSection = document.getElementById("savedMessages");
+  const messagesList = document.getElementById("messagesList");
+
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const messageError = document.getElementById("messageError");
+    const successMessage = document.getElementById("successMessage");
+
+    // clear old errors
+    nameError.textContent = "";
+    emailError.textContent = "";
+    messageError.textContent = "";
+    successMessage.textContent = "";
+
+    let valid = true;
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (!name) {
+      nameError.textContent = "Please enter your name.";
+      valid = false;
+    }
+
+    if (!email) {
+      emailError.textContent = "Please enter your email.";
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailError.textContent = "Please enter a valid email address.";
+      valid = false;
+    }
+
+    if (!message) {
+      messageError.textContent = "Please write a message.";
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // ✅ Save message on the page
+    savedSection.classList.remove("hidden");
+
+    const card = document.createElement("article");
+    card.className = "saved-message-card";
+    card.innerHTML = `
+      <strong>${name}</strong>
+      <span>${email}</span>
+      <p>${message}</p>
+    `;
+
+    messagesList.prepend(card);
+
+    successMessage.textContent = "Your message has been saved on this page. 📝";
+    contactForm.reset();
+  });
+}
+
+

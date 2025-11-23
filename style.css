@@ -1,96 +1,132 @@
-/* General Reset & Base */
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #0b0c10, #1f2833);
-  color: #c5c6c7;
-  min-height: 100vh;
-  padding-top: 50px;
+/* 0. COLOR PALETTE  */
+
+:root {
+  --bg-main: #050b16;
+  --bg-deep: #04101f;          /* prussian blue vibe */
+  --bg-card: #0b1525;
+  --bg-card-soft: #131b2e;
+  --accent-teal: #2dd4bf;
+  --accent-lightblue: #38bdf8;
+  --accent-purple: #7c3aed;
+  --accent-soft-pink: #fb7185;
+  --text-main: #f5f5f5;
+  --text-muted: #c5c6c7;
+  --border-soft: rgba(148, 163, 184, 0.5);
 }
 
-/* Layout for main content */
+/* 1. GLOBAL BASE  */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: var(--text-main);
+  min-height: 100vh;
+
+  /* Multi-color gradient background, no dots */
+  background:
+    radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.35), transparent 55%),
+    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.35), transparent 55%),
+    linear-gradient(160deg, var(--bg-deep), #020617 55%, #000000 100%);
+}
+
+/* remove the old dotted overlay entirely */
+/* (body::before deleted on purpose) */
+
+h1 {
+  position: relative;
+  display: inline-block;
+}
+
+/* soft glow behind main title */
+h1::after {
+  content: "";
+  position: absolute;
+  inset: -15px -30px;
+  background: linear-gradient(
+    90deg,
+    rgba(45, 212, 191, 0.35),
+    rgba(56, 189, 248, 0.3),
+    rgba(124, 58, 237, 0.3)
+  );
+  filter: blur(38px);
+  z-index: -1;
+}
+
+/* Layout container shared */
 .container {
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem 3rem;
 }
 
-/* Results section */
-.results {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-}
+/* 2. HEADER + NAV + FOOTER  */
 
-/* Movie card */
-.results article {
-  display: flex;
-  gap: 2.5rem;
-  padding: 32px;
-  border-radius: 18px;
-  background: rgba(15, 20, 30, 0.97);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-  max-width: 100%;
-}
-
-/* Poster */
-.results article img,
-.results article > div:first-child {
-  flex-shrink: 0;
-  width: 260px;
-  height: auto;
-  border-radius: 10px;
-}
-
-/* Text area */
-.results article h2 {
-  color: #ffffff;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.results article p {
-  color: #ffffff;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 0.4rem;
-}
-
-/* Labels (Genre:, Director:) */
-.results article p strong {
-  color: #66fcf1;
-  font-weight: 600;
-}
-
-/* Header */
-header {
+.site-header {
   text-align: center;
   margin-bottom: 40px;
+  padding-top: 24px;
 }
 
-header h1 {
+.site-header h1 {
   color: #ffffff;
   font-weight: 700;
   font-size: 2.5rem;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
   letter-spacing: 0.05em;
 }
 
-/* Navbar links */
-nav a {
-  color: #c5c6c7;
+.nav {
+  margin-top: 12px;
+}
+
+.nav a {
+  color: var(--text-muted);
   text-decoration: none;
   margin: 0 15px;
   font-weight: 500;
-  transition: color 0.2s, transform 0.2s;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-nav a:hover {
-  color: #66fcf1;
+.nav a:hover,
+.nav a.active {
+  color: var(--accent-teal);
   transform: translateY(-1px);
 }
 
-/* Search box */
+.site-footer {
+  text-align: center;
+  margin-top: 80px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.project-description {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* Shared error text */
+.error {
+  color: var(--accent-soft-pink);
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+  min-height: 0.9rem;
+}
+
+/*  3. HOME / SEARCH PAGE  */
+
 .search-box {
   display: flex;
   flex-direction: column;
@@ -113,27 +149,27 @@ nav a:hover {
 .search-box input[type="text"] {
   width: 320px;
   border-radius: 999px;
-  border: 1px solid #45a29e;
+  border: 1px solid var(--accent-teal);
   padding: 10px 14px;
-  background: #0b0c10;
+  background: #020617;
   color: #fff;
   outline: none;
 }
 
 .search-box input::placeholder {
-  color: #888;
+  color: #6b7280;
 }
 
 .search-box input[type="text"]:focus {
-  border-color: #66fcf1;
-  box-shadow: 0 0 0 2px rgba(102, 252, 241, 0.25);
+  border-color: var(--accent-lightblue);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35);
 }
 
 .search-box button {
-  background-color: #45a29e;
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-lightblue));
   border: none;
   padding: 10px 20px;
-  color: white;
+  color: #020617;
   font-weight: 600;
   border-radius: 999px;
   cursor: pointer;
@@ -141,24 +177,274 @@ nav a:hover {
 }
 
 .search-box button:hover {
-  background-color: #66fcf1;
-  color: #0b0c10;
   transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55);
 }
 
-.search-box button:focus {
-  box-shadow: 0 0 0 2px rgba(102, 252, 241, 0.4);
+/*  4. MOVIE RESULTS CARD */
+
+.results {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
 }
 
-/* Footer */
-footer {
+.results article {
+  display: flex;
+  gap: 2.5rem;
+  padding: 32px;
+  border-radius: 18px;
+  background: radial-gradient(circle at top left, #1f2937, #020617);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  max-width: 100%;
+}
+
+/* Poster */
+.results article img,
+.results article > div:first-child {
+  flex-shrink: 0;
+  width: 260px;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Text area */
+.results article h2 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.results article p {
+  color: #e5e7eb;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+}
+
+.results article p strong {
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+/* 5. TEAM PAGE */
+
+.team {
+  margin-top: 40px;
+  padding-bottom: 60px;
+}
+
+.team h2 {
   text-align: center;
-  margin-top: 80px;
-  color: #888;
-  font-size: 14px;
+  margin-bottom: 30px;
+  font-size: 2rem;
 }
 
-/* Small screen */
+/* top person (Trisha) is a full-width card */
+.member {
+  background: radial-gradient(circle at top, #111827, var(--bg-card-soft));
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+  margin-bottom: 24px;
+}
+
+.member:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+  background: radial-gradient(circle at top, #1f2937, #020617);
+}
+
+/* Grid for rest of team */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* IMAGE STYLING */
+.member img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 15px;
+}
+
+/* TEXT OPTIMIZED */
+.member h3 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: #f9fafb;
+}
+
+.member .role {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-lightblue);
+  margin-bottom: 10px;
+}
+
+.member .bio {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  margin: 0 auto;
+  max-width: 85%;
+}
+
+/* 6. CONTACT PAGE  */
+
+.contact-section {
+  max-width: 700px;
+  margin: 40px auto 70px;
+  padding: 0 1.5rem;
+}
+
+.contact-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-intro {
+  text-align: center;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+.contact-card {
+  background: radial-gradient(circle at top, #111827, var(--bg-card));
+  border-radius: 18px;
+  padding: 22px 20px 26px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.form-group {
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.form-group label span {
+  color: var(--accent-soft-pink);
+  margin-left: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.97);
+  color: #f9fafb;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-lightblue);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
+}
+
+/* Cute button */
+.btn-cute {
+  margin-top: 0.4rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22c55e, var(--accent-teal));
+  color: #02131d;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.btn-cute:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
+  filter: brightness(1.05);
+}
+
+.success-text {
+  margin-top: 0.6rem;
+  font-size: 0.88rem;
+  color: #4ade80;
+}
+
+/*  7. SAVED MESSAGES CARDS  */
+
+.hidden {
+  display: none;
+}
+
+.saved-messages {
+  margin-top: 2.4rem;
+}
+
+.saved-messages h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.9rem;
+  text-align: left;
+}
+
+.saved-message-card {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.2),
+    rgba(15, 23, 42, 0.95)
+  );
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.7rem;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+/* name line */
+.saved-message-card strong {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* email line */
+.saved-message-card span {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 0.35rem;
+}
+
+/* message text */
+.saved-message-card p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+/* 8. RESPONSIVE */
+
 @media (max-width: 768px) {
   .results article {
     flex-direction: column;
