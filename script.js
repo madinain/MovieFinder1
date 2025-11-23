@@ -8,7 +8,7 @@ $(document).ready(function () {
   const $results = $("#results");
   const $errorEl = $("#error");
 
-  // If this page doesn't have a search form (Team/Contact), do nothing
+
   if ($form.length === 0) return;
 
   function showLoading() {
@@ -87,7 +87,7 @@ $(document).ready(function () {
     });
   });
 
-  // OPTIONAL: if you ever use ?query= in the URL, auto-run
+  // OPTIONAL: if ever use ?query= in the URL, auto-run
   const params = new URLSearchParams(window.location.search);
   const q = params.get("q") || params.get("query");
   if (q) {
@@ -116,7 +116,6 @@ if (contactForm) {
     const messageError = document.getElementById("messageError");
     const successMessage = document.getElementById("successMessage");
 
-    // clear old errors
     nameError.textContent = "";
     emailError.textContent = "";
     messageError.textContent = "";
@@ -148,7 +147,7 @@ if (contactForm) {
 
     if (!valid) return;
 
-    // ✅ Save message on the page
+    // Save message on the page
     savedSection.classList.remove("hidden");
 
     const card = document.createElement("article");
